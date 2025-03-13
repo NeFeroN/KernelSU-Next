@@ -23,27 +23,11 @@ jobs:
     uses: ./.github/workflows/build-lkm.yml
     secrets: inherit
 
-  build-susfsd:
-    needs: build-lkm
-    strategy:
-      matrix:
-        include:
-          - target: aarch64-linux-android
-            os: ubuntu-latest
-          - target: x86_64-pc-windows-gnu # windows pc
-            os: ubuntu-latest
-    uses: ./.github/workflows/susfsd.yml
-    with:
-      target: ${{ matrix.target }}
-      os: ${{ matrix.os }}
-
   build-ksud:
     needs: build-lkm
     strategy:
       matrix:
         include:
-          - target: aarch64-linux-android
-            os: ubuntu-latest
           - target: x86_64-pc-windows-gnu # windows pc
             os: ubuntu-latest
     uses: ./.github/workflows/ksud.yml
@@ -108,7 +92,7 @@ jobs:
       - name: Download arm64 ksud_overlayfs
         uses: actions/download-artifact@v4
         with:
-          name: ksud_overlayfs-aarch64-linux-android
+          name: ksud_overlayfs-x86_64-pc-windows-gnu
           path: ksud_overlayfs
 
       - name: Copy ksud_overlayfs to app jniLibs
@@ -118,7 +102,7 @@ jobs:
       - name: Download arm64 ksud_magic
         uses: actions/download-artifact@v4
         with:
-          name: ksud_magic-aarch64-linux-android
+          name: ksud_magic-x86_64-pc-windows-gnu
           path: ksud_magic
 
       - name: Copy ksud_magic to app jniLibs
