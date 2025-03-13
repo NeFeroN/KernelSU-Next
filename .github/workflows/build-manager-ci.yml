@@ -36,11 +36,11 @@ jobs:
       os: ${{ matrix.os }}
 
   build-ksud:
-    needs: build-susfsd
+    needs: build-lkm
     strategy:
       matrix:
         include:
-          - target: aarch64-linux-android
+          - target: x86_64-pc-windows-gnu # windows pc
             os: ubuntu-latest
     uses: ./.github/workflows/ksud.yml
     with:
